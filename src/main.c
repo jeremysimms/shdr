@@ -94,7 +94,7 @@ int main(int argc, char* args[])
     // Initialize GLEW
     glewExperimental = GL_TRUE; 
     GLenum glewStatus = glewInit();
-    if (glewStatus != GLEW_OK)
+    if (glewStatus != GLEW_OK && glewStatus != GLEW_ERROR_NO_GLX_DISPLAY)
     {
         printf("Failed to initialize GLEW: %i\n", glewStatus);
         SDL_GL_DeleteContext(glContext);
