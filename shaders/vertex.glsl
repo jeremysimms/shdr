@@ -1,4 +1,4 @@
-#version 140
+#version 100
 in vec2 aPos;
 
 void main() {

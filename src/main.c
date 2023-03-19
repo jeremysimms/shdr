@@ -7,7 +7,8 @@
 #include <SDL2/SDL_opengl.h>
 #include <OpenGL/glu.h>
 
-
+int w = 640;
+int h = 480;
 
 GLchar* read_shader_file(const char* filename)
 {
@@ -59,16 +60,17 @@ int main(int argc, char* args[])
     }
 
     // Set OpenGL version to 3.2
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
     Uint32 windowFlags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN;
     // Create window
     window = SDL_CreateWindow("SHDR",
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        0, 0,
+        w, h,
          windowFlags);
+    SDL_ShowCursor(0);
     if (!window)
     {
         printf("Failed to create SDL window: %s\n", SDL_GetError());
@@ -94,7 +96,7 @@ int main(int argc, char* args[])
     GLenum glewStatus = glewInit();
     if (glewStatus != GLEW_OK)
     {
-        printf("Failed to initialize GLEW\n");
+        printf("Failed to initialize GLEW: %i\n", glewStatus);
         SDL_GL_DeleteContext(glContext);
         SDL_DestroyWindow(window);
         SDL_Quit();
@@ -105,7 +107,7 @@ int main(int argc, char* args[])
     GLuint shaderProgram = glCreateProgram();
     const GLchar* vertexSource[] =
 	{
-		"#version 140\nin vec2 aPos; void main() { gl_Position = vec4( aPos.x, aPos.y, 0, 1 ); }"
+		"#version 100\nin vec2 aPos; void main() { gl_Position = vec4( aPos.x, aPos.y, 0, 1 ); }"
 	};
     if(vertexSource == NULL) {
         SDL_GL_DeleteContext(glContext);
@@ -147,7 +149,6 @@ int main(int argc, char* args[])
         return EXIT_FAILURE;
     }
     glAttachShader(shaderProgram, fragmentShader);
-    glBindFragDataLocation(shaderProgram, 0, "outColor");
     glLinkProgram(shaderProgram);
     GLint programSuccess = GL_TRUE;
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &programSuccess);
@@ -200,14 +201,14 @@ int main(int argc, char* args[])
                 quit = true;
             }
         }
-        glClear( GL_COLOR_BUFFER_BIT );
+        glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram( shaderProgram );
         glEnableVertexAttribArray(vertLocation);
         glBindBuffer( GL_ARRAY_BUFFER, gVBO );
         GLint t = glGetUniformLocation(shaderProgram, "iTime");
         GLint resolution = glGetUniformLocation(shaderProgram, "iResolution");
         glUniform1f(t, (float)SDL_GetTicks()/1000.);
-        glUniform2i(t, DM.w, DM.h);
+        glUniform2i(t, w, h);
         glVertexAttribPointer( vertLocation, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL );
         glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, gIBO );
         glDrawElements( GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL );

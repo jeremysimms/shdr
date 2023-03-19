@@ -1,7 +1,6 @@
-#version 140
-out vec4 outColor;
-uniform vec2 iResolution = vec2(640, 480);
-uniform float iTime = 0;
+#version 100
+uniform vec2 iResolution;
+uniform float iTime;
 
 float Hash21(vec2 p) {
     p = fract(p * vec2(234.34, 435.34));
@@ -47,5 +46,5 @@ void main()
     col.g = li * 1.0;
     col.r = 0.;
     col.b = 0.;
-    outColor = vec4(col,1.0);
+    gl_FragColor = vec4(col,1.0);
 }

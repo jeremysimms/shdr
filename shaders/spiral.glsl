@@ -1,7 +1,7 @@
-#version 140
+#version 100
 out vec4 outColor;
-uniform vec2 iResolution = vec2(640, 480);
-uniform float iTime = 0;
+uniform vec2 iResolution;
+uniform float iTime;
 
 float Layer(vec2 uv, float thickness) {
     vec2 st = vec2(atan(uv.x, uv.y), length(uv));
@@ -27,5 +27,5 @@ void main( )
         }
     }
     col = vec3(0, c, 0);
-    outColor = vec4(col,1);
+    gl_FragColor = vec4(col,1);
 }

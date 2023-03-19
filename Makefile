@@ -11,8 +11,8 @@ OUT=shdr
 CFLAGS=$(shell $(SDL_CONFIG) --cflags) -lm -std=gnu99
 INC=-I$(INC_DIR)/
 LIBS=$(shell $(SDL_CONFIG) --libs)
-OTHER_LIB=-lGLEW
-MAC_ARGS = -framework OpenGL
+OTHER_LIB=-lGLEW -lGLU -lGL
+MAC_ARGS=-framework OpenGL
 
 ifeq ($(OS), Darwin)
 	DEBUG=-g

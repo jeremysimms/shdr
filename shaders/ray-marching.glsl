@@ -1,10 +1,10 @@
-#version 140
-out vec4 outColor;
-uniform vec2 iResolution = vec2(640, 480);
-uniform float iTime = 0;
+#version 100
 #define MAX_STEPS 100
 #define MAX_DIST 100.
 #define SURF_DIST .01
+out vec4 outColor;
+uniform vec2 iResolution;
+uniform float iTime;
 
 struct MarchOut {
     float d;
@@ -135,5 +135,5 @@ void main()
 
     col = pow(col, vec3(.4545));
     
-    outColor = vec4(col,1.0);
+    gl_FragColor = vec4(col,1.0);
 }

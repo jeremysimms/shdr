@@ -1,7 +1,7 @@
-#version 140
+#version 100
 out vec4 outColor;
-uniform vec2 iResolution = vec2(640, 480);
-uniform float iTime = 0;
+uniform vec2 iResolution;
+uniform float iTime;
 
 mat2 r(float a) { //Rotate
     float s = sin(radians(a));
@@ -48,5 +48,5 @@ void main()
         col.z = sin(iTime*.5 *10.21)*.5 + .5;
     }
     // Output to screen
-    outColor = vec4(col,1.0);
+    gl_FragColor = vec4(col,1.0);
 }
