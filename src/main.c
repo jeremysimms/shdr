@@ -7,26 +7,41 @@
 #include <SDL2/SDL_opengl.h>
 #include <const.h>
 
-GLchar* read_shader_file(const char* filename)
+GLchar* load_fragment_shader(const char* filename)
 {
-    char* buffer = NULL;
-    long length;
-    FILE* file = fopen(filename, "rb");
+    char* header = "#version 100\nprecision highp float;\nuniform float iTime;\nuniform vec2 iResolution;\n";
+    char* footer = "\nvoid main() { mainImage(gl_FragColor, gl_FragCoord.xy); }\n";
+    FILE *fp;
+    char *file_contents;
+    long file_size;
 
-    if (file)
-    {
-        fseek(file, 0, SEEK_END);
-        length = ftell(file);
-        fseek(file, 0, SEEK_SET);
-        buffer = (char*)malloc(length + 1);
-        if (buffer)
-        {
-            fread(buffer, 1, length, file);
-            buffer[length] = '\0';
-        }
-        fclose(file);
+    // Open the file for reading
+    fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Error: cannot open file %s\n", filename);
+        return file_contents;
     }
-    return buffer;
+
+    // Determine the size of the file
+    fseek(fp, 0L, SEEK_END);
+    file_size = ftell(fp);
+    rewind(fp);
+
+    // Allocate memory for the file contents
+    file_contents = malloc(file_size + strlen(header) + strlen(footer) + 1);
+
+    // Copy the header string to the beginning of the file contents
+    strcpy(file_contents, header);
+
+    // Read the file contents and append them to the header string
+    fread(file_contents + strlen(header), 1, file_size, fp);
+
+    // Copy the footer string to the end of the file contents
+    strcpy(file_contents + strlen(header) + file_size, footer);
+
+    // Close the file
+    fclose(fp);
+    return file_contents;
 }
 
 void print_shader_info_log(GLuint id) {
@@ -130,7 +145,7 @@ int main(int argc, char* args[])
     glAttachShader(shaderProgram, vertexShader);
 
     // Load fragment shader
-    GLchar* fragmentSource = read_shader_file(args[1]);
+    GLchar* fragmentSource = load_fragment_shader(args[1]);
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
     glCompileShader(fragmentShader);

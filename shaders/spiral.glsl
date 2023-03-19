@@ -1,7 +1,3 @@
-#version 100
-precision highp float;
-uniform vec2 iResolution;
-uniform float iTime;
 
 float Layer(vec2 uv, float thickness) {
     vec2 st = vec2(atan(uv.x, uv.y), length(uv));
@@ -12,9 +8,9 @@ float Layer(vec2 uv, float thickness) {
     return c;
 }
 
-void main( )
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-    vec2 uv = (gl_FragCoord.xy - .5 * iResolution.xy)/iResolution.y;
+    vec2 uv = (fragCoord - .5 * iResolution.xy)/iResolution.y;
     vec3 col = vec3(0);
     float c = Layer(uv/2., 0.);
     for(float i = 0.; i < 3.0; i+=1.0) {
@@ -27,5 +23,5 @@ void main( )
         }
     }
     col = vec3(0, c, 0);
-    gl_FragColor = vec4(col,1);
+    fragColor = vec4(col,1);
 }

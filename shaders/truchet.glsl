@@ -1,7 +1,4 @@
-#version 100
-precision highp float;
-uniform vec2 iResolution;
-uniform float iTime;
+
 
 float Hash21(vec2 p) {
     p = fract(p * vec2(234.34, 435.34));
@@ -37,13 +34,15 @@ float Layer(vec2 uv) {
   return mask;
 }
 
-void main()
+
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-    vec2 uv = (gl_FragCoord.xy - .5 * iResolution.xy)/iResolution.y;
+    vec2 uv = (fragCoord - .5 * iResolution.xy)/iResolution.y;
     vec3 col = vec3(0);
     float li = Layer(uv);
     col.g = li * 1.0;
     col.r = 0.;
     col.b = 0.;
-    gl_FragColor = vec4(col,1.0);
+    fragColor = vec4(col,1.0);
 }
