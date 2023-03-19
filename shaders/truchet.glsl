@@ -1,4 +1,5 @@
 #version 100
+precision highp float;
 uniform vec2 iResolution;
 uniform float iTime;
 

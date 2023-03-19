@@ -2,6 +2,7 @@
 #define MAX_STEPS 100
 #define MAX_DIST 100.
 #define SURF_DIST .01
+precision highp float;
 out vec4 outColor;
 uniform vec2 iResolution;
 uniform float iTime;
