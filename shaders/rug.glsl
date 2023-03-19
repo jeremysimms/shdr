@@ -14,8 +14,6 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     vec2 t2 = vec2(0.);
     vec3 col1 = col;
     float multiplier = 2.;
-    if(iMouse.z>.5)
-    uv = uv.xy + iMouse.xy / iResolution.xy/t1;
     for(int k = 0; k < 6; k++){
         uv = (uv-t2/scale)/scale;
         t2 = triangle_wave(uv-.5);
