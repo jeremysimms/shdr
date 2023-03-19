@@ -5,9 +5,7 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
-
-int w = 640;
-int h = 480;
+#include <const.h>
 
 GLchar* read_shader_file(const char* filename)
 {
@@ -59,17 +57,17 @@ int main(int argc, char* args[])
     }
 
     // Set OpenGL version to 3.2
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-    Uint32 windowFlags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN;
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, SHDR_OPENGL_MAJOR_VERSION);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, SHDR_OPENGL_MINOR_VERSION);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SHDR_GL_PROFILE);
+    
     // Create window
+    SDL_ShowCursor(SDL_DISABLE);
     window = SDL_CreateWindow("SHDR",
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        w, h,
-         windowFlags);
-    SDL_ShowCursor(0);
+        640, 480,
+         SHDR_WINDOW_FLAGS);
     if (!window)
     {
         printf("Failed to create SDL window: %s\n", SDL_GetError());
@@ -191,9 +189,10 @@ int main(int argc, char* args[])
     glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, gIBO );
     glBufferData( GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData, GL_STATIC_DRAW );
     bool quit = false;
+    int w;
+    int h;
+    SDL_GetWindowSize(window, &w, &h);
     SDL_Event e;
-    SDL_DisplayMode DM;
-    SDL_GetCurrentDisplayMode(0, &DM);
     while(!quit) {
         while( SDL_PollEvent( &e ) != 0 ) {
             if( e.type == SDL_QUIT || e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) {
@@ -207,7 +206,7 @@ int main(int argc, char* args[])
         GLint t = glGetUniformLocation(shaderProgram, "iTime");
         GLint resolution = glGetUniformLocation(shaderProgram, "iResolution");
         glUniform1f(t, (float)SDL_GetTicks()/1000.);
-        glUniform2i(t, w, h);
+        glUniform2f(resolution, (float)w, (float)h);
         glVertexAttribPointer( vertLocation, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL );
         glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, gIBO );
         glDrawElements( GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL );

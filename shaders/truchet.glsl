@@ -37,8 +37,6 @@ float Layer(vec2 uv) {
   return mask;
 }
 
-
-
 void main()
 {
     vec2 uv = (gl_FragCoord.xy - .5 * iResolution.xy)/iResolution.y;

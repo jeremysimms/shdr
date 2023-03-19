@@ -2,6 +2,7 @@
     "files.associations": {
         "sdl_opengl.h": "c",
         "chrono": "c",
-        "glew.h": "c"
+        "glew.h": "c",
+        "const.h": "c"
     }
 }

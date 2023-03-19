@@ -1,5 +1,4 @@
 #version 100
-out vec4 outColor;
 precision highp float;
 uniform vec2 iResolution;
 uniform float iTime;
