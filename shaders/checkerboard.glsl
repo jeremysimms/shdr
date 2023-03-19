@@ -1,17 +1,14 @@
-#version 140
-out vec4 outColor;
-uniform vec2 iResolution = vec2(640, 480);
-uniform float iTime = 0;
-
 mat2 r(float a) { //Rotate
     float s = sin(radians(a));
     float c = cos(radians(a));
     return mat2(c,-s,s,c);
 }
 
-void main()
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-    vec2 uv = gl_FragCoord.xy/iResolution.y;
+    vec2 uv = fragCoord/iResolution.y;
+
+    
     //store original uv coordinate 
     vec2 uvO = uv;
     mat2 rot = r(sin(iTime*.5)*5.);
@@ -48,5 +45,5 @@ void main()
         col.z = sin(iTime*.5 *10.21)*.5 + .5;
     }
     // Output to screen
-    outColor = vec4(col,1.0);
+    fragColor = vec4(col,1.0);
 }
