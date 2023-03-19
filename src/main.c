@@ -5,7 +5,6 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
-#include <OpenGL/glu.h>
 
 int w = 640;
 int h = 480;
