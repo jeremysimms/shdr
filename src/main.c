@@ -106,7 +106,7 @@ int main(int argc, char* args[])
     GLuint shaderProgram = glCreateProgram();
     const GLchar* vertexSource[] =
 	{
-		"#version 100\nin vec2 aPos; void main() { gl_Position = vec4( aPos.x, aPos.y, 0, 1 ); }"
+		"#version 100\nattribute vec2 aPos; void main() { gl_Position = vec4( aPos.x, aPos.y, 0, 1 ); }"
 	};
     if(vertexSource == NULL) {
         SDL_GL_DeleteContext(glContext);
