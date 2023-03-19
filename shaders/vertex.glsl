@@ -1,4 +1,5 @@
 #version 100
+precision highp float;
 in vec2 aPos;
 
 void main() {
