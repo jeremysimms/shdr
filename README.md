@@ -61,8 +61,14 @@ shdr shaders/checkerboard.glsl
 
 ## Notes
 
+### Supported Uniforms
+
 Right now not all the uniforms that are available on [ShaderToy](https://shadertoy.com) are implemented. This might prevent some things from working. Music and multi channel won't work at the moment. Here are the available uniforms:
 
 - `uniform vec2 iResolution` the width and height of the display surface
 - `uniform float iTime` the number of seconds that have passed since the program started
+
+### GLSL Version 
+
+Since I wrote this to run on a Raspberry PI model A from 2011, it's set to run using OpenGL ES 1.0 which only supports GLSL version 100. It's pretty trivial to get it to work with later versions if you want, just update the function that appends the `#version` lines to both the vertex and fragment shaders.
 
