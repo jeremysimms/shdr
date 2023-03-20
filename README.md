@@ -2,6 +2,16 @@
 
 C program that renders [ShaderToy](https://shadertoy.com) shaders natively. Can run on a Raspberry PI without a desktop environment/window manager.
 
+## Screenshots
+
+![Screenshot1](/assets/1.png)
+
+![Screenshot2](/assets/2.png)
+
+![Screenshot3](/assets/3.png)
+
+![Screenshot3](/assets/4.png)
+
 ## Preparation
 
 First, install SDL2 and GLEW for your platform. 
@@ -54,10 +64,6 @@ shdr shaders/checkerboard.glsl
  - `shaders/lambert.glsl` by me
  - `shaders/ray-marching.glsl` by me
  - `shaders/truchet.glsl` by me
- - `shaders/rug.glsl` by [jarble](https://www.shadertoy.com/user/jarble)
- - `shaders/maze.glsl` by [santreal](https://www.shadertoy.com/user/santreal)
- - `shaders/fuji.glsl` by [kaiware007](https://www.shadertoy.com/user/kaiware007)
-
 
 ## Notes
 
