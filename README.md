@@ -1,6 +1,6 @@
 # SHDR
 
-C program that renders [ShaderToy](https://shadertoy.com) shaders onto a full screen quad. Can run on a Raspberry PI without a desktop environment/window manager.
+C program that renders [ShaderToy](https://shadertoy.com) shaders natively. Can run on a Raspberry PI without a desktop environment/window manager.
 
 ## Preparation
 
