@@ -56,15 +56,7 @@ You can run one of the examples like so:
 ```
 shdr shaders/checkerboard.glsl
 ```
-
  
-## Example Shader Credits
-
- - `shaders/checkerboard.glsl` by me
- - `shaders/lambert.glsl` by me
- - `shaders/ray-marching.glsl` by me
- - `shaders/truchet.glsl` by me
-
 ## Notes
 
 ### Supported Uniforms
